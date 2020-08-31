@@ -57,3 +57,16 @@ quicksort iteratively, and how neatly it fell into place when he did it
 recursively.)
 
     TODO
+
+## A Java Quicksort
+
+### Exercise 2-2
+
+Our Java quicksort does a fair amount of type converrsion as items are cast
+from their original type (like `Integer`) to `Object` and back again.
+Experiment with a version of `Quicksort.sort` that uses the specific type being
+sorted, to estimate what performance penalty is incurred by type conversions.
+
+## O-Notation
+
+TODO: p. 40 ff.
