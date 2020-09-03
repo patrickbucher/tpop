@@ -69,4 +69,57 @@ sorted, to estimate what performance penalty is incurred by type conversions.
 
 ## O-Notation
 
-TODO: p. 40 ff.
+A `O(n^2)` algorithm may run faster for smaller input than a `O(n log n)`
+algorithm. The expected behaviour of a algorithm is often better than the worst
+case behaviour. (p. 40)
+
+Examples of runtime complexity (p. 41):
+
+| Notation     | Name        | Example                |
+|--------------|-------------|------------------------|
+| `O(1)`       | constant    | array index            |
+| `O(log n)`   | logarithmic | binary search          |
+| `O(n)`       | linear      | string comparison      |
+| `O(n log n)` | n log n     | quicksort              |
+| `O(n^2)`     | quadratic   | simple sorting methods |
+| `O(n^3)`     | cubic       | matrix multiplication  |
+| `O(2^n)`     | exponential | set partitioning       |
+
+### Exercise 2-3
+
+What are some input sequences that might cause a quicksort implementation to
+display worst-case behaviour? Try to find some that provoke your library
+version into running slowly. Automate the process so that you can specify and
+perform a large number of experiments easily.
+
+Answer: An array in reverse order (descending order) with the pivot element
+picked at the very end (the smallest number) will cause a lot of comparisons
+and swaps (`O(n^2)`).
+
+TODO: implementation, benchmark/test suite
+
+### Exercise 2-4
+
+Design and implement an algorithm that will sort an array of `n` integers as
+slowly as possible. You have to play fair: the algorithm must make progress and
+eventually terminate, and the implementation must not cheat with tricks like
+time-wasting loops. What is the complexity of your algorithm as a function of
+`n`?
+
+Answer: A very inefficient implementation would be to shuffle the array until
+it is sorted. Both shuffling and comparison can be implemented with `O(n)`
+complexity. In the worst case, it will take all permutations of the array to be
+built until a sorted version is found. (Finding the permutations is a more
+systematic approach and will terminate eventually; shuffling randomly perhaps
+does not qualify as an algorithm, because it might never finish.) An array of
+`n` elements has `!n` permutations. This is even worse than `O(2^n)`:
+
+| n | n!  | 2^n |
+|---|----:|----:|
+| 1 |   1 |   2 |
+| 2 |   2 |   4 |
+| 3 |   6 |   8 |
+| 4 |  24 |  16 |
+| 5 | 120 |  32 |
+
+TODO: implementation
