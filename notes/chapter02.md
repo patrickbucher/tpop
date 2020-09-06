@@ -56,7 +56,21 @@ compare the two versions. (Hoare describes how hard it was to work out
 quicksort iteratively, and how neatly it fell into place when he did it
 recursively.)
 
-    TODO
+Answer:
+
+The basic idea is to put on a stack what otherwise would be on a call stack:
+the function arguments that denote the partition boundaries.
+
+    typedef struct {
+        int *v;
+        int n;
+    } partition;
+
+
+The process is repeated as long as there are items on the stack, and those
+items denote array partitions of one or more elements.
+
+See `iterqsort.c` in the `examples/chapter02` folder.
 
 ## A Java Quicksort
 
