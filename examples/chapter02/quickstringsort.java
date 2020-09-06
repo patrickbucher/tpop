@@ -1,44 +1,16 @@
 import java.util.Random;
 
-interface Cmp {
-    int cmp(Object x, Object y);
-}
-
-// Icmp: Integer comparison
-class Icmp implements Cmp {
-    public int cmp(Object o1, Object o2) {
-        int i1 = ((Integer) o1).intValue();
-        int i2 = ((Integer) o2).intValue();
-        if (i1 < i2) {
-            return -1;
-        } else if (i1 == i2) {
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-}
-
-// Scmp: String comparison
-class Scmp implements Cmp {
-    public int cmp(Object o1, Object o2) {
-        String s1 = (String) o1;
-        String s2 = (String) o2;
-        return s1.compareTo(s2);
-    }
-}
-
-class Quicksort {
+class QuickStringSort {
 
     static Random rgen = new Random();
 
-    // Quicksort.rand: return random integer in [left,right]
+    // QuickStringSort.rand: return random integer in [left,right]
     static int rand(int left, int right) {
         return left + Math.abs(rgen.nextInt()) % (right - left + 1);
     }
 
-    // Quicksort.sort: quicksort v[left]..v[right]
-    static void sort(Object[] v, int left, int right, Cmp cmp) {
+    // QuickStringSort.sort: quicksort v[left]..v[right]
+    static void sort(String[] v, int left, int right) {
         int i, last;
 
         if (left >= right) {
@@ -49,13 +21,13 @@ class Quicksort {
 
         last = left;
         for (i = left + 1; i <= right; i++) {
-            if (cmp.cmp(v[i], v[left]) < 0) {
+            if (v[i].compareTo(v[left]) < 0) {
                 swap(v, ++last, i);
             }
         }
         swap(v, left, last);
-        sort(v, left, last - 1, cmp);
-        sort(v, last + 1, right, cmp);
+        sort(v, left, last - 1);
+        sort(v, last + 1, right);
     }
 
     static void swap(Object[] v, int i, int j) {
@@ -74,10 +46,9 @@ class Quicksort {
             array[i] = randomString(rgen, length, max);
         }
     
-        Cmp cmp = new Scmp(); 
-        Quicksort.sort(array, 0, array.length - 1, new Scmp());
+        QuickStringSort.sort(array, 0, array.length - 1);
         for (int i = 0; i < array.length; i++) {
-            if (i > 0 && cmp.cmp(array[i-1], array[i]) > 0) {
+            if (i > 0 && array[i-1].compareTo(array[i]) > 0) {
                 System.out.println("array was not sorted correctly");
                 System.exit(-1);
             }

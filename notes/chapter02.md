@@ -81,6 +81,26 @@ from their original type (like `Integer`) to `Object` and back again.
 Experiment with a version of `Quicksort.sort` that uses the specific type being
 sorted, to estimate what performance penalty is incurred by type conversions.
 
+Answer:
+
+Sorting 10 million random strings of the length 10 with the generic solution
+yields the following timing:
+
+    real    0m19.868s
+    user    0m30.314s
+    sys     0m0.427s
+
+A version implemented only for strings (`quickstringsort.java`) with the same
+workload yields the following timing:
+
+    real    0m17.164s
+    user    0m27.586s
+    sys     0m0.477s
+
+The difference is small, and might also be caused by the direct comparison, as
+opposed to the comparison using an interface implementation. In practice, it
+won't pay off to implement special versions.
+
 ## O-Notation
 
 A `O(n^2)` algorithm may run faster for smaller input than a `O(n log n)`
