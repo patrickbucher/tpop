@@ -126,11 +126,45 @@ display worst-case behaviour? Try to find some that provoke your library
 version into running slowly. Automate the process so that you can specify and
 perform a large number of experiments easily.
 
-Answer: An array in reverse order (descending order) with the pivot element
-picked at the very end (the smallest number) will cause a lot of comparisons
-and swaps (`O(n^2)`).
+Answer:
 
-TODO: implementation, benchmark/test suite
+The program `qsortbench.c` generates arrays of a specific size in ascending,
+descending, or random order and sorts it. A random pivot element is selected.
+These are the timings:
+
+    $ ./qsortbench 50000000 asc
+    duration:  8.23 seconds
+    $ ./qsortbench 50000000 desc
+    duration:  8.89 seconds
+    $ ./qsortbench 50000000 rand
+    duration: 13.94 seconds
+
+The random array takes significantly longer than ascending and descending
+ordered arrays to sort.
+
+The situation looks much different if the last element is picked as the pivot
+element. Here, the random array yields the most sensible pivot elements, and
+runs considerably faster than the other two (notice that the array is now much
+smaller):
+
+    $ ./qsortbench 50000 asc
+    duration:  8.71 seconds
+    $ ./qsortbench 50000 desc
+    duration:  5.50 seconds
+    $ ./qsortbench 50000 rand
+    duration:  0.01 seconds
+
+If the pivot element is picked from the middle, the algorithm runs fast again
+for all kinds of inputs:
+
+    $ ./qsortbench 50000000 asc
+    duration:  5.76 seconds
+    $ ./qsortbench 50000000 desc
+    duration:  6.21 seconds
+    $ ./qsortbench 50000000 rand
+    duration: 13.59 seconds
+
+Here, the ordered arrays are sorted the fastest.
 
 ### Exercise 2-4
 
