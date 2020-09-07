@@ -1,21 +1,26 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define NELEMS(v) (sizeof(v) / sizeof(v[0]))
 
 int *permutationsort(int[], int);
 int factorial(int);
 bool is_ordered_asc(int[], int);
-int **permutate(int[], int);
+void permutate(int[], int, int**, int);
 
 int main(int argc, char *argv[])
 {
     int i, n;
 
-    int array[] = {6, 9, 3, 5};
+    int array[] = {6, 0, 9, 3, 2, 5, 10, 7, 4, 1, 8};
     n = NELEMS(array);
     int *sorted = permutationsort(array, n);
+    if (sorted == NULL) {
+        printf("sorting of %d element array failed\n", n);
+        exit(EXIT_FAILURE);
+    }
 
     for (i = 0; i < n; i++) {
         if (i > 0 && sorted[i-1] > sorted[i]) {
@@ -26,64 +31,104 @@ int main(int argc, char *argv[])
     }
     putchar('\n');
 
+    free(sorted);
+
     return 0;
 }
 
-// NOTICE: this is absolute insanity; memory is not freed, too...
+// NOTICE: this algorithm is absolute insanity
 int *permutationsort(int v[], int n)
 {
-    int **perms;
-    int i, n_perms;
+    int **perms, *sorted;
+    int i, j, nperms, found;
 
-    n_perms = factorial(n);
-    perms = (int**)malloc(sizeof(int*) * n_perms);
+    nperms = factorial(n);
+    perms = (int**)malloc(sizeof(int*) * nperms);
+    for (i = 0; i < nperms; i++) {
+        perms[i] = (int*)malloc(sizeof(int*) * n);
+        memset(perms[i], 0, sizeof(int) * n);
+    }
 
-    perms = permutate(v, n);
+    permutate(v, n, perms, nperms);
 
-    for (i = 0; i < n; i++) {
+    found = -1;
+    for (i = 0; i < nperms; i++) {
         if (is_ordered_asc(perms[i], n)) {
-            return perms[i];
+            found = i;
+            break;
         }
     }
 
-    return NULL;
+    sorted = NULL;
+    if (found != -1) {
+        sorted = (int*)malloc(sizeof(int) * n);
+        memcpy(sorted, perms[found], sizeof(int) * n);
+    }
+
+    for (i = 0; i < nperms; i++) {
+        free(perms[i]);
+    }
+    free(perms);
+
+    return sorted;
 }
 
-int **permutate(int v[], int n)
+void permutate(int v[], int n, int **perms, int nperms)
 {
     int exclude, i, j, w;
-    int *remainder, **remainder_permutations, **permutations;
+    int *remainder, **remainder_perms;
+    int nsubperms, exclude_offset;
 
-    permutations = (int**)malloc(sizeof(int*) * n);
+    if (n <= 1) {
+        perms[0][0] = v[0];
+        return;
+    }
+
+    nsubperms = factorial(n-1);
+
+    remainder_perms = (int**)malloc(sizeof(int*) * nsubperms);
+    for (i = 0; i < nsubperms; i++) {
+        remainder_perms[i] = (int*)malloc(sizeof(int) * (n-1));
+        memset(remainder_perms[i], 0, sizeof(int) * (n-1));
+    }
 
     for (exclude = 0; exclude < n; exclude++) {
+
         remainder = (int*)malloc(sizeof(int) * (n-1));
+        memset(remainder, 0, sizeof(int) * (n-1));
+
         w = 0;
         for (i = 0; i < n; i++) {
             if (i != exclude) {
                 remainder[w++] = v[i];
             }
         }
-        remainder_permutations = permutate(remainder, n-1);
-        for (i = 0; i < factorial(n-1); i++) {
-            permutations[exclude] = (int*)malloc(sizeof(int) * n);
-            permutations[exclude][0] = v[exclude];
+
+        permutate(remainder, n-1, remainder_perms, nsubperms);
+
+        for (i = 0; i < nsubperms; i++) {
+            exclude_offset = exclude * nsubperms + i;
+            perms[exclude_offset][0] = v[exclude];
             for (j = 0; j < n-1; j++) {
-                // FIXME: this is broken
-                permutations[exclude][j+1] = remainder_permutations[i][j];
+                perms[exclude_offset][j+1] = remainder_perms[i][j];
             }
         }
+
+        free(remainder);
     }
 
-    return permutations;
+    for (i = 0; i < nsubperms; i++) {
+        free(remainder_perms[i]);
+    }
+    free(remainder_perms);
 }
 
 bool is_ordered_asc(int v[], int n)
 {
     int i;
 
-    for (i = 0; i < n; i++) {
-        if (i > 0 && v[i-1] > v[i]) {
+    for (i = 1; i < n; i++) {
+        if (v[i-1] > v[i]) {
             return false;
         }
     }

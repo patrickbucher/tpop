@@ -190,4 +190,13 @@ does not qualify as an algorithm, because it might never finish.) An array of
 | 4 |  24 |  16 |
 | 5 | 120 |  32 |
 
-TODO: implementation
+The `examples` folder contains `permutationsort.c`, which sorts an array of ten
+integers using permutation sort. The program requires more than 500 megabytes
+and takes more than a second to sort the array of ten elements.
+
+Eleven elements take more than 14 seconds and require roughly 4 gigabytes of
+memory.
+
+The algorithm can be optimized to stop as soon as an ordered permutation is
+found, rather than building all permutations. (But optimization is not the
+point here.)
