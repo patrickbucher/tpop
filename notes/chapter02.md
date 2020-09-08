@@ -200,3 +200,35 @@ memory.
 The algorithm can be optimized to stop as soon as an ordered permutation is
 found, rather than building all permutations. (But optimization is not the
 point here.)
+
+## Growing Arrays
+
+Inserting into a fixed-size, sorted array is an `O(n^2)` operation. (p. 41)
+
+An array should be resized in chunks for efficiency. (p. 42)
+
+The C standard library has two functions for copying memory parts: `memcpy` and
+`memmove`. `memcpy` is faster, but might overwrite memory if source and
+destination overlap. `memmove` is slower but safer. (p. 43)
+
+## Exercise 2-5
+
+In the code above, `delname` doesn't call realloc to return the memory freed by
+the deletion. Is this worthwile? How would you decide whether to do so?
+
+Answer: Deleting an array element can only shrink the array by one element at a
+time, whereas adding elements might grow the array by its total size. It is
+likely that a delete operation is followed by another add operation (otherwise,
+the array would just be deleted). Thus, the gained space will just be
+reallocated later on. This won't save anything, but cause even more memory
+operations. It might be sensible to shrink an array after many elements have
+been removed, say, if the number of items is less than half of the array's
+capacity (symmetric approach).
+
+## Exercise 2-6
+
+Implement the necessary changes to `addname` and `delname` to delete items by
+marking deleted items as unused. How isolated is the rest of the program from
+this change?
+
+TODO: implement and answer
