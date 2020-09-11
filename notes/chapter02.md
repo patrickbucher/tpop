@@ -56,10 +56,8 @@ compare the two versions. (Hoare describes how hard it was to work out
 quicksort iteratively, and how neatly it fell into place when he did it
 recursively.)
 
-Answer:
-
-The basic idea is to put on a stack what otherwise would be on a call stack:
-the function arguments that denote the partition boundaries.
+**Answer**: The basic idea is to put on a stack what otherwise would be on a
+call stack: the function arguments that denote the partition boundaries.
 
     typedef struct {
         int *v;
@@ -81,10 +79,8 @@ from their original type (like `Integer`) to `Object` and back again.
 Experiment with a version of `Quicksort.sort` that uses the specific type being
 sorted, to estimate what performance penalty is incurred by type conversions.
 
-Answer:
-
-Sorting 10 million random strings of the length 10 with the generic solution
-yields the following timing:
+**Answer**: Sorting 10 million random strings of the length 10 with the generic
+solution yields the following timing:
 
     real    0m19.868s
     user    0m30.314s
@@ -126,11 +122,9 @@ display worst-case behaviour? Try to find some that provoke your library
 version into running slowly. Automate the process so that you can specify and
 perform a large number of experiments easily.
 
-Answer:
-
-The program `qsortbench.c` generates arrays of a specific size in ascending,
-descending, or random order and sorts it. A random pivot element is selected.
-These are the timings:
+**Answer**: The program `qsortbench.c` generates arrays of a specific size in
+ascending, descending, or random order and sorts it. A random pivot element is
+selected. These are the timings:
 
     $ ./qsortbench 50000000 asc
     duration:  8.23 seconds
@@ -174,13 +168,13 @@ eventually terminate, and the implementation must not cheat with tricks like
 time-wasting loops. What is the complexity of your algorithm as a function of
 `n`?
 
-Answer: A very inefficient implementation would be to shuffle the array until
-it is sorted. Both shuffling and comparison can be implemented with `O(n)`
-complexity. In the worst case, it will take all permutations of the array to be
-built until a sorted version is found. (Finding the permutations is a more
-systematic approach and will terminate eventually; shuffling randomly perhaps
-does not qualify as an algorithm, because it might never finish.) An array of
-`n` elements has `!n` permutations. This is even worse than `O(2^n)`:
+**Answer**: A very inefficient implementation would be to shuffle the array
+until it is sorted. Both shuffling and comparison can be implemented with
+`O(n)` complexity. In the worst case, it will take all permutations of the
+array to be built until a sorted version is found. (Finding the permutations is
+a more systematic approach and will terminate eventually; shuffling randomly
+perhaps does not qualify as an algorithm, because it might never finish.) An
+array of `n` elements has `!n` permutations. This is even worse than `O(2^n)`:
 
 | n | n!  | 2^n |
 |---|----:|----:|
@@ -216,7 +210,7 @@ destination overlap. `memmove` is slower but safer. (p. 43)
 In the code above, `delname` doesn't call realloc to return the memory freed by
 the deletion. Is this worthwile? How would you decide whether to do so?
 
-Answer: Deleting an array element can only shrink the array by one element at a
+**Answer**: Deleting an array element can only shrink the array by one element at a
 time, whereas adding elements might grow the array by its total size. It is
 likely that a delete operation is followed by another add operation (otherwise,
 the array would just be deleted). Thus, the gained space will just be
@@ -231,4 +225,12 @@ Implement the necessary changes to `addname` and `delname` to delete items by
 marking deleted items as unused. How isolated is the rest of the program from
 this change?
 
-TODO: implement and answer
+**Answer**: An empty `Nameval` instance (`Nameval empty = {NULL, 0}`) can be used
+to mark positions as empty. In `delname`, the part after the deleted entry no
+longer needs to be moved in memory. However, a loop to output all values needs
+to skip the `empty` value, which is best detected by comparing the `name` field
+to `NULL`. In `addname`, an additional loop has to be introduced, which first
+looks for empty spots in the range `0 < i < nvtab.nval`. After the loop, `i` is
+the index of an empty spot in the array (either referring to a gap, or to the
+beginning of the free area). The program is implemented in
+`examples/chapter02/growablearrayemptynull.c`.

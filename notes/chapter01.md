@@ -28,13 +28,11 @@ Comment on the choice of names and values in the following code.
     if ((ch = getchar()) == EOF)
         not_eof = FALSE;
 
-Answer:
-
-Values for `true` and `false` are commonly used the other way around: 0 is
-`false`, 1 (or any other value than 0) is `true`. In many programming language,
-conditions evaluating to the value 0 are `false`. So the choice above is not
-only uncommon, but also dangerous. For example in C, the block for the
-conditional `if (TRUE)` would never be executed.
+**Answer**: Values for `true` and `false` are commonly used the other way
+around: 0 is `false`, 1 (or any other value than 0) is `true`. In many
+programming language, conditions evaluating to the value 0 are `false`. So the
+choice above is not only uncommon, but also dangerous. For example in C, the
+block for the conditional `if (TRUE)` would never be executed.
 
 The use of `ch` is ok in this context.
 
@@ -53,7 +51,7 @@ Improve this function:
         }
     }
 
-Answer:
+**Answer**:
 
     int smaller(char *s, char *t) {
         int comparison = strcmp(s, t);
@@ -76,10 +74,8 @@ Read this code aloud:
     if ((falloc(SMRHSHSCRTCH, S_IFEXT|0644, MAXPRODDHSH)) < 0)
         ...
 
-Answer:
-
-if falloc smerehashscratch, sifext or zero six four four, maxprod d hash is
-smaller than zero
+**Answer**: if falloc smerehashscratch, sifext or zero six four four, maxprod d
+hash is smaller than zero
 
 ## Expressions and Statements
 
@@ -108,7 +104,7 @@ Improve each of these fragments:
     else
         bit = 0;
 
-Answer:
+**Answer**:
 
     // 1.
     if (c != 'y' && c != 'Y')
@@ -141,11 +137,9 @@ What is wrong with this excerpt?
 
     insert(&graph[vert], read(&val), read(&ch));
 
-Answer:
-
-The position of the two values being read in the argument list of insert depend
-on the order in which the two read function calls are executed, which is not
-necessarily from the left to the right.
+**Answer**: The position of the two values being read in the argument list of
+insert depend on the order in which the two read function calls are executed,
+which is not necessarily from the left to the right.
 
 ### Exercise 1-6
 
@@ -157,7 +151,7 @@ evaluation:
 
 Try it on as many compilers as you can, to see what happens in practice.
 
-Answer:
+**Answer**:
 
     1 1 (evaluate first, increment after)
     2 2 (increment first, evaluate after)
@@ -213,7 +207,7 @@ Rewrite these C/C++ excerpts more clearly:
     for (k = 0; k++ < 5; x += dx)
         scanf("%lf", &dx);
 
-Answer:
+**Answer**:
 
     // 1.
     if (!istty(stdin) && !istty(stdout) && !istty(stderr) {
@@ -242,7 +236,7 @@ idiomatic loop:
         }
     }
 
-Answer:
+**Answer**:
 
     for (int count = 0; count < total; count++) {
         if (this.getName(count) == nametable.userName()) {
@@ -304,7 +298,7 @@ Identify the problems with this macro definition:
 
     #define ISDIGIT(c) ((c > '0') && (c <= '9')) ? 1 : 0
 
-Answer: There are two classes of problems.
+**Answer**: There are two classes of problems.
 
 1. Double evaluation: Since the parameter `c` occurs twice in the macro body,
 invoking the macro with an expression that has side effects will result in two
@@ -368,7 +362,7 @@ How would you rewrite these definitions to minimize potential errors?
     #define MI2KM       1.609344
     #define SQMI2SQM    2.589988
 
-Answer:
+**Answer**:
 
     const float foot_in_meters = 0.3048;
     const float meters_in_feet = 1 / foot_in_meters;
