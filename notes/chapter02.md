@@ -205,7 +205,7 @@ The C standard library has two functions for copying memory parts: `memcpy` and
 `memmove`. `memcpy` is faster, but might overwrite memory if source and
 destination overlap. `memmove` is slower but safer. (p. 43)
 
-## Exercise 2-5
+### Exercise 2-5
 
 In the code above, `delname` doesn't call realloc to return the memory freed by
 the deletion. Is this worthwile? How would you decide whether to do so?
@@ -219,7 +219,7 @@ operations. It might be sensible to shrink an array after many elements have
 been removed, say, if the number of items is less than half of the array's
 capacity (symmetric approach).
 
-## Exercise 2-6
+### Exercise 2-6
 
 Implement the necessary changes to `addname` and `delname` to delete items by
 marking deleted items as unused. How isolated is the rest of the program from
@@ -234,3 +234,27 @@ looks for empty spots in the range `0 < i < nvtab.nval`. After the loop, `i` is
 the index of an empty spot in the array (either referring to a gap, or to the
 beginning of the free area). The program is implemented in
 `examples/chapter02/growablearrayemptynull.c`.
+
+## Lists
+
+Lists can be rearranged by changing some pointers. No big memory chunks need to
+be moved, as for arrays. Arrays have faster random lookup, but lists are faster
+when it comes to adding and removing items. (p. 45)
+
+In C, rather an _element_ type than a _list_ type needs to be implemented
+first. Lists are usually constructed dynamically; not statically, as it is
+common with arrays. (p. 45)
+
+Adding elements at the beginning of a list is very cheap, but requires to
+reassign the variable pointing to the beginning of the list. Adding elements at
+the end of a list either requires traversal through the hole list (`O(n)`) or
+maintaining a second pointer to the end of the list. (p. 46)
+
+### Exercise 2-7
+
+Implement some of the other list operators: copy, merge, split, insert before
+or after a specific item. How do the two insertion operations differ in
+difficulty? How much can you use the routine we've written, and how much must
+you create yourself?
+
+TODO
