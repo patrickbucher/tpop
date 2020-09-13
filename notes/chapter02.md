@@ -68,7 +68,7 @@ call stack: the function arguments that denote the partition boundaries.
 The process is repeated as long as there are items on the stack, and those
 items denote array partitions of one or more elements.
 
-See `iterqsort.c` in the `examples/chapter02` folder.
+See `iterqsort.c` in the `src/chapter02` folder.
 
 ## A Java Quicksort
 
@@ -184,7 +184,7 @@ array of `n` elements has `!n` permutations. This is even worse than `O(2^n)`:
 | 4 |  24 |  16 |
 | 5 | 120 |  32 |
 
-The `examples` folder contains `permutationsort.c`, which sorts an array of ten
+The `src` folder contains `permutationsort.c`, which sorts an array of ten
 integers using permutation sort. The program requires more than 500 megabytes
 and takes more than a second to sort the array of ten elements.
 
@@ -233,7 +233,7 @@ to `NULL`. In `addname`, an additional loop has to be introduced, which first
 looks for empty spots in the range `0 < i < nvtab.nval`. After the loop, `i` is
 the index of an empty spot in the array (either referring to a gap, or to the
 beginning of the free area). The program is implemented in
-`examples/chapter02/growablearrayemptynull.c`.
+`src/chapter02/growablearrayemptynull.c`.
 
 ## Lists
 
