@@ -109,6 +109,38 @@ Nameval *delitem(Nameval *listp, char *name)
     return NULL; /* can't get here */
 }
 
+/* copy: copy an entire list */
+Nameval *copy(Nameval *src)
+{
+    Nameval *cpy, *p, *new;
+
+    if (src == NULL) {
+        return NULL;
+    }
+    cpy = copyitem(src);
+
+    for (p = src->next; p != NULL; p = p->next) {
+        addend(cpy, copyitem(p));
+    }
+
+    return cpy;
+}
+
+/* copyitem: copy a single item */
+Nameval *copyitem(Nameval *orig)
+{
+    Nameval *new;
+    size_t namelen;
+    char *name;
+
+    namelen = strlen(orig->name);
+    name = (char*) malloc(sizeof(char) * namelen);
+    strncpy(name, orig->name, namelen);
+    new = newitem(name, orig->value);
+
+    return new;
+}
+
 void *emalloc(size_t size)
 {
     void *chunk = malloc(size);

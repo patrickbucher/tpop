@@ -257,4 +257,11 @@ or after a specific item. How do the two insertion operations differ in
 difficulty? How much can you use the routine we've written, and how much must
 you create yourself?
 
-TODO
+TODO:
+
+- [x] copy
+- [ ] merge
+- [ ] split
+- [ ] insert
+    - [ ] before
+    - [ ] after

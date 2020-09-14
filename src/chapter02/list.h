@@ -14,6 +14,8 @@ void printnv(Nameval *p, void *arg);
 void inccounter(Nameval *p,void *arg);
 void freeall(Nameval *listp);
 Nameval *delitem(Nameval *listp, char *name);
+Nameval *copy(Nameval *src);
+Nameval *copyitem(Nameval *orig);
 
 void *emalloc(size_t size);
 void eprintf(char *fmt, char *arg);
