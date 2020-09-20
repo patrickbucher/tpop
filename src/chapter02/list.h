@@ -16,6 +16,8 @@ void freeall(Nameval *listp);
 Nameval *delitem(Nameval *listp, char *name);
 Nameval *copy(Nameval *src);
 Nameval *copyitem(Nameval *orig);
+Nameval *merge(Nameval *first, Nameval *second);
+void split(Nameval *list, char *name, Nameval **first, Nameval **second);
 
 void *emalloc(size_t size);
 void eprintf(char *fmt, char *arg);

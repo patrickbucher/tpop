@@ -260,8 +260,8 @@ you create yourself?
 TODO:
 
 - [x] copy
-- [ ] merge
-- [ ] split
+- [x] merge
+- [x] split
 - [ ] insert
     - [ ] before
     - [ ] after

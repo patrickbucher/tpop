@@ -112,7 +112,7 @@ Nameval *delitem(Nameval *listp, char *name)
 /* copy: copy an entire list */
 Nameval *copy(Nameval *src)
 {
-    Nameval *cpy, *p, *new;
+    Nameval *cpy, *p;
 
     if (src == NULL) {
         return NULL;
@@ -139,6 +139,58 @@ Nameval *copyitem(Nameval *orig)
     new = newitem(name, orig->value);
 
     return new;
+}
+
+/* merge: combine the two given lists into one list by copying the items */
+Nameval *merge(Nameval *first, Nameval *second)
+{
+    Nameval *new, *p;
+
+    if (first == NULL || second == NULL) {
+        return NULL;
+    }
+
+    new = copyitem(first);
+
+    for (p = first->next; p != NULL; p = p->next) {
+        addend(new, copyitem(p));
+    }
+    for (p = second; p != NULL; p = p->next) {
+        addend(new, copyitem(p));
+    }
+
+    return new;
+}
+
+/* split: copy the items from list into first, and, starting from the item
+   with the given name, to the second list. Both first and second are expected
+   to point to NULL. */
+void split(Nameval *list, char *name, Nameval **first, Nameval **second)
+{
+    Nameval *p, *target;
+    int namelen;
+
+    if (list == NULL || lookup(list, name) == NULL) {
+        return;
+    }
+
+    *first = NULL;
+    *second = NULL;
+    target = NULL;
+    namelen = strlen(name);
+
+    for (p = list; p != NULL; p = p->next) {
+        if (*second == NULL && strncmp(name, p->name, namelen) == 0) {
+            // the first list element could be the splitter: no items in first
+            *second = copyitem(p);
+            target = *second;
+        } else if (*first == NULL) {
+            *first = copyitem(p);
+            target = *first;
+        } else if (target != NULL) {
+            addend(target, copyitem(p));
+        }
+    }
 }
 
 void *emalloc(size_t size)

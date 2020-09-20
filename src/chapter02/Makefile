@@ -1,3 +1,6 @@
+CFLAGS=-Wall -g
+CC=gcc
+
 .PHONY: clean
 
 listtest: listtest.o list.o

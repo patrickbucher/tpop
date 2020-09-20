@@ -5,7 +5,7 @@
 
 int main()
 {
-    Nameval *list, *tmp, *cpy;
+    Nameval *list, *tmp, *cpy, *dach, *benelux, *europe;
     int size;
 
     list = newitem("Patrick", 33);
@@ -39,8 +39,32 @@ int main()
     apply(cpy, printnv, "%s: %d\n");
     putchar('\n');
 
+    puts("Merge");
+    dach = newitem("Switzerland", 1);
+    dach = addend(dach, newitem("Germany", 2));
+    dach = addend(dach, newitem("Austria", 3));
+    benelux = newitem("Belgium", 4);
+    benelux = addend(benelux, newitem("Netherlands", 5));
+    benelux = addend(benelux, newitem("Luxemburg", 6));
+    europe = merge(dach, benelux);
+    apply(europe, printnv, "%s: %d\n");
+    putchar('\n');
+
+    puts("Split");
+    freeall(dach);
+    freeall(benelux);
+    split(europe, "Belgium", &dach, &benelux);
+    puts("Dach:");
+    apply(dach, printnv, "\t%s: %d\n");
+    puts("Benelux:");
+    apply(benelux, printnv, "\t%s: %d\n");
+
     freeall(list);
+    freeall(tmp);
     freeall(cpy);
+    freeall(dach);
+    freeall(benelux);
+    freeall(europe);
 
     return 0;
 }
