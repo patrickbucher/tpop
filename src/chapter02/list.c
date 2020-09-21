@@ -193,6 +193,41 @@ void split(Nameval *list, char *name, Nameval **first, Nameval **second)
     }
 }
 
+/* insert_before: inserts add into list in front of the item with the name before */
+Nameval *insert_before(Nameval *add, Nameval *list, char *before)
+{
+    Nameval *p, *prev;
+
+    prev = NULL;
+    for (p = list; p != NULL; p = p->next) {
+        if (strcmp(p->name, before) == 0) {
+            add->next = p;
+            if (prev == NULL) {
+                return add;
+            } else {
+                prev->next = add;
+                return list;
+            }
+        }
+        prev = p;
+    }
+
+    return list;
+}
+
+/* insert_after: inserts add into list as a successor of the item with the name after */
+void *insert_after(Nameval *add, Nameval *list, char *after)
+{
+    Nameval *p;
+
+    for (p = list; p != NULL; p = p->next) {
+        if (strcmp(p->name, after) == 0) {
+            add->next = p->next;
+            p->next = add;
+        }
+    }
+}
+
 void *emalloc(size_t size)
 {
     void *chunk = malloc(size);

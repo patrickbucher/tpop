@@ -58,9 +58,17 @@ int main()
     apply(dach, printnv, "\t%s: %d\n");
     puts("Benelux:");
     apply(benelux, printnv, "\t%s: %d\n");
+    putchar('\n');
+
+    puts("Insert");
+    europe = insert_before(newitem("Italy", 7), europe, "Switzerland");
+    europe = insert_before(newitem("Portugal", 8), europe, "Luxemburg");
+    insert_after(newitem("Spain", 9), europe, "Austria");
+    insert_after(newitem("Bulgaria", 10), europe, "Spain");
+    insert_after(newitem("Romania", 11), europe, "Luxemburg");
+    apply(europe, printnv, "\t%s: %d\n");
 
     freeall(list);
-    freeall(tmp);
     freeall(cpy);
     freeall(dach);
     freeall(benelux);

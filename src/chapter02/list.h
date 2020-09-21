@@ -18,6 +18,8 @@ Nameval *copy(Nameval *src);
 Nameval *copyitem(Nameval *orig);
 Nameval *merge(Nameval *first, Nameval *second);
 void split(Nameval *list, char *name, Nameval **first, Nameval **second);
+Nameval *insert_before(Nameval *add, Nameval *list, char *before);
+void *insert_after(Nameval *add, Nameval *list, char *after);
 
 void *emalloc(size_t size);
 void eprintf(char *fmt, char *arg);

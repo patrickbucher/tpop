@@ -257,11 +257,28 @@ or after a specific item. How do the two insertion operations differ in
 difficulty? How much can you use the routine we've written, and how much must
 you create yourself?
 
-TODO:
+**Answer**: The operations have been implemented as the following functions
+(see `src/chapter02/list.h`):
 
-- [x] copy
-- [x] merge
-- [x] split
-- [ ] insert
-    - [ ] before
-    - [ ] after
+    Nameval *copy(Nameval *src);
+    Nameval *copyitem(Nameval *orig);
+    Nameval *merge(Nameval *first, Nameval *second);
+    void split(Nameval *list, char *name, Nameval **first, Nameval **second);
+    Nameval *insert_before(Nameval *add, Nameval *list, char *before);
+    void *insert_after(Nameval *add, Nameval *list, char *after);
+
+With `copyitem` being a utility function for the `copy` operation.
+
+The `insert_before` function is more difficult to implement. It requires to
+maintain a pointer to the list item visited previously, so that the item to be
+inserted can be attached to it. It's also possible that the first list item is
+replaced by the item to be added. Thus, `insert_before` returns a pointer to
+the first item after the insertion operation is needed. In contrast,
+`insert_after` cannot change the first item, and therefore doesn't return a
+pointer. Its implementation doesn't require to maintain a pointer to the item
+previously visited.
+
+The `copy` function made use of the existing `addend` function, but also
+required the addition of the `copyitem` function. Both functions were re-used
+to write the `merge` function. `addend` was again used for the `split`
+function. Code re-use helped a lot in this exercise.
