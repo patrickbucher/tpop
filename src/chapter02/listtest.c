@@ -67,6 +67,22 @@ int main()
     insert_after(newitem("Bulgaria", 10), europe, "Spain");
     insert_after(newitem("Romania", 11), europe, "Luxemburg");
     apply(europe, printnv, "\t%s: %d\n");
+    putchar('\n');
+
+    list = addend(list, newitem("Charles", 67));
+    list = addend(list, newitem("Dora", 53));
+    list = addend(list, newitem("Elliot", 33));
+    list = addend(list, newitem("Fiona", 21));
+
+    puts("Reverse (recursively)");
+    list = reverse_rec(list);
+    apply(list, printnv, "\t%s: %d\n");
+    putchar('\n');
+
+    puts("Reverse (iteratively)");
+    list = reverse_iter(list);
+    apply(list, printnv, "\t%s: %d\n");
+    putchar('\n');
 
     freeall(list);
     freeall(cpy);

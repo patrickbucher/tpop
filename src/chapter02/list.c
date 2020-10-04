@@ -66,7 +66,7 @@ void printnv(Nameval *p, void *arg)
 }
 
 /* inccounter: increment counter *arg
-   usage: apply(nvlist,inccounter, &n); */
+   usage: apply(nvlist, inccounter, &n); */
 void inccounter(Nameval *p,void *arg)
 {
     int *ip;
@@ -216,7 +216,7 @@ Nameval *insert_before(Nameval *add, Nameval *list, char *before)
 }
 
 /* insert_after: inserts add into list as a successor of the item with the name after */
-void *insert_after(Nameval *add, Nameval *list, char *after)
+void insert_after(Nameval *add, Nameval *list, char *after)
 {
     Nameval *p;
 
@@ -226,6 +226,65 @@ void *insert_after(Nameval *add, Nameval *list, char *after)
             p->next = add;
         }
     }
+}
+
+Nameval *reverse_rec_internally(Nameval *current, Nameval **new_head)
+{
+    Nameval *right;
+
+    if (current == NULL) {
+        return NULL;
+    } else if (current->next == NULL) {
+        // base case: new head
+        *new_head = current;
+        return current;
+    } else {
+        // general case: reversed remainder points to current element
+        right = reverse_rec_internally(current->next, new_head);
+        right->next = current;
+        current->next = NULL;
+        return current;
+    }
+}
+
+/* reverse_rec: reverses the given list recursively */
+Nameval *reverse_rec(Nameval *list)
+{
+    Nameval *new_head;
+
+    new_head = NULL;
+    list = reverse_rec_internally(list, &new_head);
+
+    return new_head;
+}
+
+/* reverse_iter: reverses the given list iteratively */
+Nameval *reverse_iter(Nameval *list)
+{
+    int n, p;
+    Nameval **stack, *prev, *current, *new_head;
+
+    if (list == NULL) {
+        return NULL;
+    }
+
+    apply(list, inccounter, &n);
+    stack = (Nameval**)malloc(sizeof(Nameval*) * n);
+
+    p = 0;
+    for (current = list; current != NULL; current = current->next) {
+        stack[p++] = current;
+    }
+
+    new_head = stack[--p];
+    for (prev = new_head; p >= 0; p--) {
+        current = stack[p];
+        prev->next = current;
+        current->next = NULL;
+        prev = current;
+    }
+
+    return new_head;
 }
 
 void *emalloc(size_t size)

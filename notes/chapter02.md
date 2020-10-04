@@ -282,3 +282,17 @@ The `copy` function made use of the existing `addend` function, but also
 required the addition of the `copyitem` function. Both functions were re-used
 to write the `merge` function. `addend` was again used for the `split`
 function. Code re-use helped a lot in this exercise.
+
+### Exercise 2-8
+
+Write recursive and iterative versions of `reverse`, which reverses a list. Do
+not create new list items; re-use the existing ones.
+
+**Answer**: The recursive function was implemented as `reverse_rec`, and
+requires an internal function `reverse_rec_internally`, which also keeps track
+of the new head (the old tail, that is). The iterative function was implemented
+as `reverse_iter` and uses a stack to unwind the original list. The new list is
+then rebuilt by taking from the stack.
+
+A stack is a very helpful data structure when it comes to re-implementing
+recursive functions iteratively. This is because recursion works like a stack.
