@@ -310,4 +310,9 @@ been defined. Only a few operations have been implemented (create with
 `new_list`, cleanup with `del_list`, add an item to the end with `append`, and
 invoke a given function on every item using `each`).
 
-TODO: C++ and Java implementations
+The C++ implementation is in `src/chapter02/listtemplate.cpp`. It supports the
+same operations as the C implementation, but uses a constructor and destructore
+instead of the functions `new_list` and `del_list`. Both `List` and `Item` have
+been implemented as classes.
+
+TODO: Java implementation

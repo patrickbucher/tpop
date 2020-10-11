@@ -1,7 +1,11 @@
 CFLAGS=-Wall -g
 CC=gcc
+CPPC=g++
 
 .PHONY: clean
+
+listtemplate: listtemplate.cpp
+	${CPPC} ${CFLAGS} -o $@ listtemplate.cpp
 
 genericlist: genericlist.c
 	${CC} ${CFLAGS} -o $@ genericlist.c
@@ -17,5 +21,4 @@ list.o: list.c
 
 clean:
 	rm -f *.o
-	rm -f listtest
-	rm -f genericlist
+	rm -f listtemplate listtest genericlist
