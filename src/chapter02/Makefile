@@ -3,6 +3,9 @@ CC=gcc
 
 .PHONY: clean
 
+genericlist: genericlist.c
+	${CC} ${CFLAGS} -o $@ genericlist.c
+
 listtest: listtest.o list.o
 	${CC} ${CFLAGS} -o $@ listtest.o list.o
 
@@ -15,3 +18,4 @@ list.o: list.c
 clean:
 	rm -f *.o
 	rm -f listtest
+	rm -f genericlist

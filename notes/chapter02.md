@@ -296,3 +296,18 @@ then rebuilt by taking from the stack.
 
 A stack is a very helpful data structure when it comes to re-implementing
 recursive functions iteratively. This is because recursion works like a stack.
+
+### Exercise 2-9
+
+Write a generic `List` type for C. The easiest way is to have each list item
+hold a `void*` that points to the data. Do the same for C++ by defining a
+template and for Java by defining a class that holds lists of type `Object`.
+What are the strengths and weaknesses of the various languages for this job?
+
+**Answer**: See the C implementation in `src/chapter02/genericlist.c` with
+headers in `src/chapter02/genericlist.h`. Both a `List` and `Item` type have
+been defined. Only a few operations have been implemented (create with
+`new_list`, cleanup with `del_list`, add an item to the end with `append`, and
+invoke a given function on every item using `each`).
+
+TODO: C++ and Java implementations
