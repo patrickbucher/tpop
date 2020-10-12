@@ -315,4 +315,17 @@ same operations as the C implementation, but uses a constructor and destructore
 instead of the functions `new_list` and `del_list`. Both `List` and `Item` have
 been implemented as classes.
 
-TODO: Java implementation
+The Java implementation in `src/chaptter02/GenericList.java` was done in
+pre Java 1.5 fashion, i.e. with an `Object` instead of using generics. It
+supports the same operations as the former two implementations.
+
+The C implementation can store any type, but requires specific function
+implementations for each type in order to use the `each` operation.
+
+The C++ implementation provides a stronger abstraction than the C implementation
+using thanks to classes. Memory is released using a destructor.
+
+The Java implementation is similar to the C++ implementations, but doesn't make
+use of generics. Providing a function for the `each` operation requires an
+interface and an implementation. No memory management is required due to the
+garbage collector.

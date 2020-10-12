@@ -4,7 +4,10 @@ CPPC=g++
 
 .PHONY: all clean
 
-all: listtemplate genericlist listtest
+all: GenericList.class listtemplate genericlist listtest
+
+GenericList.class: GenericList.java
+	javac GenericList.java
 
 listtemplate: listtemplate.cpp
 	${CPPC} ${CFLAGS} -o $@ listtemplate.cpp
@@ -23,4 +26,5 @@ list.o: list.c
 
 clean:
 	rm -f *.o
+	rm -f *.class
 	rm -f listtemplate listtest genericlist
