@@ -54,6 +54,7 @@ List *new_list(void *value)
 
     item = (Item*)malloc(sizeof(Item));
     item->value = value;
+    item->next = NULL;
 
     list = (List*)malloc(sizeof(List));
     list->head = item;
@@ -85,6 +86,7 @@ void append(List *list, void *value)
     
     new_item = (Item*)malloc(sizeof(Item));
     new_item->value = value;
+    new_item->next = NULL;
 
     for (tmp = list->head; tmp != NULL; tmp = tmp->next) {
         if (tmp->next == NULL) {

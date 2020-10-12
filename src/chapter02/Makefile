@@ -2,7 +2,9 @@ CFLAGS=-Wall -g
 CC=gcc
 CPPC=g++
 
-.PHONY: clean
+.PHONY: all clean
+
+all: listtemplate genericlist listtest
 
 listtemplate: listtemplate.cpp
 	${CPPC} ${CFLAGS} -o $@ listtemplate.cpp

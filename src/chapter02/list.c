@@ -82,7 +82,6 @@ void freeall(Nameval *listp)
 
     for ( ; listp != NULL; listp = next) {
         next = listp->next;
-        /* assumes name is freed elsewhere */
         free(listp);
     }
 }
@@ -283,6 +282,8 @@ Nameval *reverse_iter(Nameval *list)
         current->next = NULL;
         prev = current;
     }
+
+    free(stack);
 
     return new_head;
 }

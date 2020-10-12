@@ -93,4 +93,6 @@ int main()
     (*numbers).append(4);
 
     (*numbers).each(print);
+
+    delete numbers;
 }
