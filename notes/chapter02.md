@@ -329,3 +329,13 @@ The Java implementation is similar to the C++ implementations, but doesn't make
 use of generics. Providing a function for the `each` operation requires an
 interface and an implementation. No memory management is required due to the
 garbage collector.
+
+### Exercise 2-10
+
+Devise and implement a set of tests for verifying that the list routines you
+write are correct. Chapter 6 discusses strategies for testing.
+
+**Answer**: In order to verify the implemented list operations, two additonal
+operations shall be added to all three implementations: `size()`, which returns
+the number of elements in the list,  and `get()`, which returns the list element
+at the given index.

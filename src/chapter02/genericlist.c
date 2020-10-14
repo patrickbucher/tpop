@@ -21,6 +21,7 @@ int main()
     List *scores, *names;
     float first, second, third;
     char monkey[STRLEN], donkey[STRLEN], honkey[STRLEN];
+    int n_scores, n_names;
 
     first = 3.14;
     second = 2.88;
@@ -40,6 +41,15 @@ int main()
 
     each(scores, printFloat);
     each(names, printString);
+
+    n_scores = size(scores);
+    n_names = size(scores);
+
+    printf("%d scores\n", n_scores);
+    printf("%d names\n", n_names);
+
+    printf("second score: %f\n", *(float*)get(scores, 1));
+    printf("third name: %s\n", (char*)get(names, 2));
 
     del_list(scores);
     del_list(names);
@@ -103,4 +113,36 @@ void each(List *list, void (*func)(Item*))
     for (tmp = list->head; tmp != NULL; tmp = tmp->next) {
         func(tmp);
     }
+}
+
+int size(List *list)
+{
+    Item *item = NULL;
+    int n = 0;
+
+    for (item = list->head; item != NULL; item = item->next) {
+        n++;
+    }
+
+    return n;
+}
+
+void *get(List *list, int i)
+{
+    Item *item = NULL;
+    int n;
+
+    n = size(list);
+    if (i < 0 || i >= n) {
+        return NULL;
+    }
+
+    for (item = list->head; item != NULL; item = item->next) {
+        if (i == 0) {
+            return item->value;
+        }
+        i--;
+    }
+
+    return NULL;
 }
