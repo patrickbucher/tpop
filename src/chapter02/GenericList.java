@@ -31,9 +31,11 @@ class LinePrinter implements Printer {
 
 class List {
     private Item head;
+    private int n;
 
     public List(Object value) {
         head = new Item(value);
+        n = 1;
     }
 
     public Item getHead() {
@@ -45,6 +47,7 @@ class List {
         for (Item tmp = head; tmp != null; tmp = tmp.getNext()) {
             if (tmp.getNext() == null) {
                 tmp.setNext(newItem);
+                n++;
                 return;
             }
         }
@@ -54,6 +57,27 @@ class List {
         for (Item tmp = head; tmp != null; tmp = tmp.getNext()) {
             printer.print(tmp.getValue());
         }
+    }
+
+    public int size() {
+        return n;
+    }
+
+    public Item get(int i) {
+        Item item = null;
+
+        if (i < 0 || i >= n) {
+            return null;
+        }
+
+        for (item = head; item != null; item = item.getNext()) {
+            if (i == 0) {
+                return item;
+            }
+            i--;
+        }
+
+        return null;
     }
 }
 
@@ -65,5 +89,11 @@ class GenericList {
         list.append("also");
         list.append("ends");
         list.each(new LinePrinter());
+        System.out.println(list.size() + " words");
+        System.out.println("first word: " + list.get(0).getValue());
+        System.out.println("second word: " + list.get(1).getValue());
+        System.out.println("third word: " + list.get(2).getValue());
+        System.out.println("fourth word: " + list.get(3).getValue());
+        System.out.println("fifth word: " + list.get(4).getValue());
     }
 }

@@ -31,12 +31,14 @@ template<typename T>
 class List {
     private:
         Item<T> *head;
+        int n;
     public:
         List(T value)
         {
             Item<T> *item;
             item = new Item<T>(value);
             head = item;
+            n = 1;
         }
         Item<T> *getHead()
         {
@@ -47,9 +49,10 @@ class List {
             Item<T> *new_item, *tmp;
 
             new_item = new Item<T>(value);
-            for (tmp = head; tmp != NULL; tmp = (*tmp).getNext()) {
-                if ((*tmp).getNext() == NULL) {
-                    (*tmp).setNext(new_item);
+            for (tmp = head; tmp != NULL; tmp = tmp->getNext()) {
+                if (tmp->getNext() == NULL) {
+                    tmp->setNext(new_item);
+                    n++;
                     return;
                 }
             }
@@ -58,7 +61,7 @@ class List {
             Item<T> *tmp, *last;
 
             last = NULL;
-            for (tmp = head; tmp != NULL; tmp = (*tmp).getNext()) {
+            for (tmp = head; tmp != NULL; tmp = tmp->getNext()) {
                 if (last != NULL) {
                     delete last;
                 }
@@ -71,9 +74,28 @@ class List {
         void each(void (*func)(Item<T> *item)) {
             Item<T> *tmp;
 
-            for (tmp = head; tmp != NULL; tmp = (*tmp).getNext()) {
+            for (tmp = head; tmp != NULL; tmp = tmp->getNext()) {
                 func(tmp);
             }
+        }
+        int size() {
+            return n;
+        }
+        Item<T> *get(int i) {
+            Item<T> *item = NULL;
+            
+            if (i < 0 || i >= n) {
+                return NULL;
+            }
+
+            for (item = head; item != NULL; item = item->getNext()) {
+                if (i == 0) {
+                    return item;
+                }
+                i--;
+            }
+
+            return NULL;
         }
 };
 
@@ -88,11 +110,17 @@ int main()
     List<int> *numbers;
     numbers = new List<int>(1);
 
-    (*numbers).append(2);
-    (*numbers).append(3);
-    (*numbers).append(4);
+    numbers->append(2);
+    numbers->append(3);
+    numbers->append(4);
 
-    (*numbers).each(print);
+    numbers->each(print);
+
+    cout << numbers->size() << " numbers\n";
+    cout << "first number: " << (*numbers).get(0)->getValue() << '\n';
+    cout << "second number: " << (*numbers).get(1)->getValue() << '\n';
+    cout << "third number: " << (*numbers).get(2)->getValue() << '\n';
+    cout << "fourth number: " << (*numbers).get(3)->getValue() << '\n';
 
     delete numbers;
 }
