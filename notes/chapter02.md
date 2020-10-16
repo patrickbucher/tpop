@@ -339,3 +339,23 @@ write are correct. Chapter 6 discusses strategies for testing.
 operations shall be added to all three implementations: `size()`, which returns
 the number of elements in the list,  and `get()`, which returns the list element
 at the given index.
+
+The C implementation is tested by `genericlist_test.c`. A list of three float
+items is created. The `size()` and `get()` operation are tested after the list
+is created initially, and after each `append()` operation, respectively. A spy
+is implemented to count the executions of the `each()` operation.
+
+The test code directly includes the `.c` file. A `_TESTING` constant ist
+defined, and the original `main()` function in `genericlist.c` is only
+compiled, if `_TESTING` is _not_ set.
+
+The C++ implementation is tested by `listtemplate_test.cpp`. It works a lot
+like the test for the C implementation, but uses integers instead of floats.
+
+The Java implementation is tested by `GenericListTest.java`. Here, strings are
+used instead of numeric types. The spy for testing the `each()` operation has
+been implemented as a class. It is more powerful than the two spies
+aforementioned, because it stores the side effect in a buffer, which then is
+tested for including all the values processed.
+
+The tests can be run in `src/chapter02` by typing `make test`.

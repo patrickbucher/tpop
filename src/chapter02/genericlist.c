@@ -16,6 +16,7 @@ void printString(Item *item)
     printf("%s\n", (char*)item->value);
 }
 
+#ifndef _TESTING
 int main()
 {
     List *scores, *names;
@@ -56,6 +57,7 @@ int main()
 
     return 0;
 }
+#endif
 
 List *new_list(void *value)
 {

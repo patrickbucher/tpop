@@ -105,6 +105,7 @@ void print(Item<T> *item)
     cout << (*item).getValue() << '\n';
 }
 
+#ifndef _TESTING
 int main()
 {
     List<int> *numbers;
@@ -124,3 +125,4 @@ int main()
 
     delete numbers;
 }
+#endif

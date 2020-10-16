@@ -2,9 +2,23 @@ CFLAGS=-Wall -g
 CC=gcc
 CPPC=g++
 
-.PHONY: all clean
+.PHONY: all test clean
 
 all: GenericList.class listtemplate genericlist listtest
+
+test: GenericListTest.class listtemplate_test genericlist_test
+	java -ea GenericListTest
+	./listtemplate_test
+	./genericlist_test
+
+GenericListTest.class: GenericListTest.java GenericList.class
+	javac GenericListTest.java
+
+listtemplate_test: listtemplate_test.cpp
+	${CPPC} ${CFLAGS} -o $@ listtemplate_test.cpp
+
+genericlist_test: genericlist_test.c
+	${CC} ${CFLAGS} -o $@ genericlist_test.c
 
 GenericList.class: GenericList.java
 	javac GenericList.java
@@ -28,3 +42,4 @@ clean:
 	rm -f *.o
 	rm -f *.class
 	rm -f listtemplate listtest genericlist
+	rm -f listtemplate_test genericlist_test
