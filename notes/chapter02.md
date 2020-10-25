@@ -1,4 +1,4 @@
-# Algorithms and Data Structures
+$# Algorithms and Data Structures
 
 Only few programs require new data structures and algorithms to be invented.
 Well-known and well-understood data structures, such as arrays, lists, maps,
@@ -359,3 +359,66 @@ aforementioned, because it stores the side effect in a buffer, which then is
 tested for including all the values processed.
 
 The tests can be run in `src/chapter02` by typing `make test`.
+
+## Trees
+
+In a _tree_, no node points to the root node. The leafs don't point to any other
+node. All the other nodes are both pointed to and do point to other nodes
+(possibly leafs).
+
+In a _binary tree_, every node has a value and two pointers: left and right,
+which are pointing to nodes with a lower (left) or higher (right) value,
+respectively.
+
+Operations that take time `O(n)` for lists or arrays only take time `O(log n)`
+for trees, because the number of nodes to be visisted is reduced by the
+pointers referring to lower/higher nodes.
+
+In a _balanced tree_, each path from the root to a leaf has approximately the
+same length, and thus, searching an item takes time `O(log n)`. If elements are
+inserted in sorted order, all the nodes will be attached to the right pointer
+like a linked list. This can be avoided in many cases by inserting items in
+random order.
+
+There are three ways of processing the tree's nodes:
+
+- _pre-order_: The node is processed, the left branche is traversed, the right
+  branch is traversed. (Rarely used)
+- _in-order_: The left branch is traversed, the node is processed, the right
+  branch is traversed.
+    - This traversal processes the nodes in their sorted order.
+    - Application: Output or storage in sorted order.
+- _post-order_: The left branch is traversed, the right branch is traversed,
+  the node is processed.
+    - This traversal is used if the operation on the node depends on its subtrees.
+    - Application: Computing the height of a tree, printing it graphically.
+
+Trees are useful to represent the syntax of a program (_parse trees_):
+
+    med = (min + max) / 2;
+
+           =
+         /   \
+       med   /
+           /   \
+           +   2
+         /   \
+        min  max
+
+### Exercise 2-11
+
+Compare the performance of `lookup` and `nrlookup`. How expensive is recursion
+compared to iteration?
+
+**Answer**: The benchmark program `tree_lookup_bench` (`tree_lookup_bench.c`) creates a tree mapping `n_items` (command line argument) random strings to random integers. The lookup functions are very fast, so that they need to be executed multiple times to measure any significant time.
+
+Here's the output of the benchmark program that maps 2 million strings of the
+length 20 to random integers, and calls the lookup function 5 million times
+with the same lookup string:
+
+    $ make tree_lookup_bench && ./tree_lookup_bench 2000000
+    recursive: 3.880s for 5000000 calls
+    iterative: 2.970s for 5000000 calls
+
+The iterative version works significantly faster. (The comparison is only fair
+if both lookups fail or succeed with the same string.)

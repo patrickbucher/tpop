@@ -2,14 +2,22 @@ CFLAGS=-Wall -g
 CC=gcc
 CPPC=g++
 
-.PHONY: all test clean
+.PHONY: bench test clean
 
-all: GenericList.class listtemplate genericlist listtest
+bench: tree_lookup_bench
+	./tree_lookup_bench
 
-test: GenericListTest.class listtemplate_test genericlist_test
+test: tree_test GenericListTest.class listtemplate_test genericlist_test
 	java -ea GenericListTest
 	./listtemplate_test
 	./genericlist_test
+	./tree_test
+
+tree_lookup_bench: tree_lookup_bench.o tree.o
+	${CC} ${CFLAGS} -o $@ tree_lookup_bench.o tree.o
+
+tree_test: tree_test.o tree.o
+	${CC} ${CFLAGS} -o $@ tree_test.o tree.o
 
 GenericListTest.class: GenericListTest.java GenericList.class
 	javac GenericListTest.java
@@ -32,14 +40,14 @@ genericlist: genericlist.c
 listtest: listtest.o list.o
 	${CC} ${CFLAGS} -o $@ listtest.o list.o
 
-listtest.o: listtest.c
-	${CC} ${CFLAGS} -c -o $@ $<
+.SUFFIXES: .c .o
 
-list.o: list.c
-	${CC} ${CFLAGS} -c -o $@ $<
+.c.o:
+	${CC} ${CFLAGS} -c $<
 
 clean:
 	rm -f *.o
 	rm -f *.class
 	rm -f listtemplate listtest genericlist
 	rm -f listtemplate_test genericlist_test
+	rm -f tree_test tree_lookup_bench
