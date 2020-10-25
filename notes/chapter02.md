@@ -435,3 +435,10 @@ inserting `n` items. Traversing `n` items in-place for storage in an array is
 `O(n)` again, which is smaller than `O(n * log n)`. Tree sort has the time
 complexity `O(n * log n)`, but requires more memory than quicksort: The values
 are stored twice (array and tree), and each value has two extra pointers.
+
+### Exercise 2-13
+
+Devise and implement a set of tests for verifying that the tree routines are
+correct.
+
+**Answer**: See `tree_test.c` (`make tree_test && ./tree_test`).
