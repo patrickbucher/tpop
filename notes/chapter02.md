@@ -422,3 +422,16 @@ with the same lookup string:
 
 The iterative version works significantly faster. (The comparison is only fair
 if both lookups fail or succeed with the same string.)
+
+### Exercise 2-12
+
+Use in-order traversal to create a sort routine. What time complexity does it
+have? Under what conditions might it behave poorly? How does its performance
+compare to our quicksort and a library version?
+
+**Answer**: See `treesort.c` (`make treesort && ./treesort`). The time
+complexity for inserting one item is `O(log n)`, and, thus, `O(n * log n)` for
+inserting `n` items. Traversing `n` items in-place for storage in an array is
+`O(n)` again, which is smaller than `O(n * log n)`. Tree sort has the time
+complexity `O(n * log n)`, but requires more memory than quicksort: The values
+are stored twice (array and tree), and each value has two extra pointers.

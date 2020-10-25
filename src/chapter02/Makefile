@@ -4,6 +4,9 @@ CPPC=g++
 
 .PHONY: bench test clean
 
+treesort: treesort.o tree.o
+	${CC} ${CFLAGS} -o $@ treesort.o tree.o
+
 bench: tree_lookup_bench
 	./tree_lookup_bench
 
@@ -48,6 +51,7 @@ listtest: listtest.o list.o
 clean:
 	rm -f *.o
 	rm -f *.class
+	rm -f *.core
 	rm -f listtemplate listtest genericlist
 	rm -f listtemplate_test genericlist_test
-	rm -f tree_test tree_lookup_bench
+	rm -f tree_test tree_lookup_bench treesort
