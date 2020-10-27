@@ -28,6 +28,7 @@ void treesort(Nameval *nvs[], int n)
 	store_inplace(tree, nvs, &i);
 }
 
+#ifndef _TESTING
 int main()
 {
 	Nameval *nvs[21];
@@ -66,3 +67,4 @@ int main()
 
 	return 0;
 }
+#endif

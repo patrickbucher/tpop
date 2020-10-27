@@ -436,6 +436,23 @@ inserting `n` items. Traversing `n` items in-place for storage in an array is
 complexity `O(n * log n)`, but requires more memory than quicksort: The values
 are stored twice (array and tree), and each value has two extra pointers.
 
+In `sort_benchmark.c`, the three sort approaches are compared as follows (`make
+sort_bench`):
+
+    $ ./sort_bench 5000000
+    treesort:       13.000
+    quicksort:      9.000
+    libsort:        7.000
+
+    $ ./sort_bench 10000000
+    treesort:       31.000
+    quicksort:      21.000
+    libsort:        16.000
+
+Even though `treesort` has a low runtime complexity, it is outperformed by
+`quicksort` and the standard library implementation. The overhead of building
+up the tree structure seems to have a big impact if `n` is relatively small.
+
 ### Exercise 2-13
 
 Devise and implement a set of tests for verifying that the tree routines are

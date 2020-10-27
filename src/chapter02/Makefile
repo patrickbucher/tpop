@@ -7,8 +7,9 @@ CPPC=g++
 treesort: treesort.o tree.o
 	${CC} ${CFLAGS} -o $@ treesort.o tree.o
 
-bench: tree_lookup_bench
+bench: tree_lookup_bench sort_bench
 	./tree_lookup_bench
+	./sort_bench 1000000
 
 test: tree_test GenericListTest.class listtemplate_test genericlist_test
 	java -ea GenericListTest
@@ -18,6 +19,9 @@ test: tree_test GenericListTest.class listtemplate_test genericlist_test
 
 tree_lookup_bench: tree_lookup_bench.o tree.o
 	${CC} ${CFLAGS} -o $@ tree_lookup_bench.o tree.o
+
+sort_bench: sort_bench.o tree.o treesort.c nv_quicksort.c
+	${CC} ${CFLAGS} -o $@ sort_bench.o tree.o
 
 tree_test: tree_test.o tree.o
 	${CC} ${CFLAGS} -o $@ tree_test.o tree.o
@@ -54,4 +58,4 @@ clean:
 	rm -f *.core
 	rm -f listtemplate listtest genericlist
 	rm -f listtemplate_test genericlist_test
-	rm -f tree_test tree_lookup_bench treesort
+	rm -f tree_test tree_lookup_bench treesort sort_bench

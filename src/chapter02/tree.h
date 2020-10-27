@@ -1,3 +1,6 @@
+#ifndef __TREE_H_
+#define __TREE_H_
+
 typedef struct Nameval Nameval;
 
 struct Nameval {
@@ -28,3 +31,4 @@ void applyinorder(Nameval *treep,
 void applypostorder(Nameval *treep,
                     void (*fn)(Nameval*, char*),
                     void *arg);
+#endif

@@ -10,18 +10,17 @@
 char *randstr(int len)
 {
 	char *str;
-	int i, n;
+	int i;
 
 	if (len < 1) {
 		return NULL;
 	}
 
-	n = len + 1;
-	str = (char*)malloc(sizeof(char) * n);
-	for (i = 0; i < n; i++) {
+	str = (char*)malloc(sizeof(char) * (len + 1));
+	for (i = 0; i < len; i++) {
 		str[i] = (char)(rand() % ('z' - 'a' + 1)) + 'a';
 	}
-	str[i] = '\0';
+	str[len] = '\0';
 
 	return str;
 }
@@ -33,7 +32,7 @@ void printnv(Nameval *node, char *fmt)
 
 double benchmark_lookup(Nameval *tree,
                         Nameval *(*lookup_fn)(Nameval*, char*),
-						int n_calls)
+                        int n_calls)
 {
 	char *name;
 	clock_t before;
@@ -68,7 +67,7 @@ int main(int argc, char *argv[])
 	double duration;
 
 	if (argc < 2) {
-		printf("Usage: %s [n_items]\n", argv[0]);
+		printf("usage: %s [n_items]\n", argv[0]);
 		return 1;
 	}
 
