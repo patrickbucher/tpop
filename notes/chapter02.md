@@ -459,3 +459,16 @@ Devise and implement a set of tests for verifying that the tree routines are
 correct.
 
 **Answer**: See `tree_test.c` (`make tree_test && ./tree_test`).
+
+## Hash Tables
+
+A hash table maps a set of _keys_ to a set of _values_. Keys pass through a
+_hash function_, which computes a _hash value_. Those hash values are evenly
+distributed in a given range.
+
+Since hash values are not necessarily unique, a collection of values (an array
+or list called _hash chain_ or _bucket_) is stored per hash. If a good hash
+function is chosen, lookup is an `O(1)` operation, which consists of two steps:
+
+1. Hashing the lookup key to find the right chain.
+2. Comparing the value to each element in the chain (perfect match).
